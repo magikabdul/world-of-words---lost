@@ -1,17 +1,16 @@
-import React, { Component } from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import withRoot from "../modules/withRoot.js";
 
-class WowApp extends Component {
-  state = {};
+import React from "react";
 
-  render() {
-    return (
-      <>
-        <CssBaseline />
-        <h1 style={{ textAlign: "center" }}>WowApp</h1>
-      </>
-    );
-  }
+import ApplicationBar from "../components/ApplicationBar.js";
+
+function Index() {
+  return (
+    <>
+      <ApplicationBar />
+      <span>appwow</span>
+    </>
+  );
 }
 
-export default WowApp;
+export default withRoot(Index);
