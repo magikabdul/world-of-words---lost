@@ -1,16 +1,27 @@
-import withRoot from "../modules/withRoot.js";
+import React, { Component } from "react";
 
-import React from "react";
+import { BrowserRouter } from "react-router-dom";
 
-import ApplicationBar from "../components/ApplicationBar.js";
+import Header from "./Header.js";
 
-function Index() {
-  return (
-    <>
-      <ApplicationBar />
-      <span>appwow</span>
-    </>
-  );
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+class WowApplication extends Component {
+  state = {
+    user: {
+      name: "",
+      isLogged: false
+    }
+  };
+
+  render() {
+    return (
+      <BrowserRouter>
+        <CssBaseline />
+        <Header isLogged={this.state.user.isLogged} />
+      </BrowserRouter>
+    );
+  }
 }
 
-export default withRoot(Index);
+export default WowApplication;

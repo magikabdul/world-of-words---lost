@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ApplicationBar() {
+export default function AppBarLogged() {
   const classes = useStyles();
 
   return (
