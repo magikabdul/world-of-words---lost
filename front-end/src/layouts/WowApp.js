@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Header from '../components/Header/Header';
+import HomePage from '../layouts/Home';
 import ErrorPage from '../pages/Error';
 
 class WowApplication extends Component {
@@ -18,7 +18,7 @@ class WowApplication extends Component {
       <BrowserRouter>
         <Switch>
           <Route path='/' exact>
-            <Header
+            <HomePage
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
             />
