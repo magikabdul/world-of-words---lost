@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from '../layouts/Home';
 import ErrorPage from '../pages/Error';
 import LoginPage from '../layouts/Login/Login';
+import RegisterPage from '../layouts/Register/Register';
 
 class WowApplication extends Component {
   state = {
@@ -32,7 +33,12 @@ class WowApplication extends Component {
             />
           </Route>
 
-          <Route path='/register'></Route>
+          <Route path='/register'>
+            <RegisterPage
+              isLogged={this.state.user.isLogged}
+              name={this.state.user.name}
+            />
+          </Route>
 
           <Route>
             <ErrorPage />
