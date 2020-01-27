@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap&subset=latin-ext');
+@import '../scss/reset.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url('../images/background.jpg');
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+// body::after {
+//   content: '';
+//   background-image: url('../images/background.jpg');
+//   opacity: 0.9;
+//   top: 0;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   position: absolute;
+//   z-index: -1;
+//   background-position: center;
+//   background-size: cover;
+// }

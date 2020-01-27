@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./styles/index.css";
-import WowApp from "./layouts/WowApp";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './scss/index.scss';
+import WowApp from './layouts/WowApp';
 
-ReactDOM.render(<WowApp />, document.getElementById("root"));
+ReactDOM.render(<WowApp />, document.getElementById('root'));
