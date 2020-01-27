@@ -26,6 +26,10 @@
     margin-top: 2rem;
     font-size: 0.8rem;
     letter-spacing: 0.15rem;
+    &__em {
+      color: white;
+      text-decoration: underline;
+    }
   }
   &--form {
     width: 80%;

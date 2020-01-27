@@ -36,7 +36,10 @@ const Login = ({ isLogged, name }) => {
         <h2 className='login--title'>sign in</h2>
         <p className='login--line'></p>
         <p className='login--message'>
-          Not a member yet?<em className='login--message-em'> Sign Up here</em>
+          Not a member yet?{' '}
+          <Link to='/register'>
+            <em className='login--message__em'>Sign Up here</em>
+          </Link>
         </p>
         <Form />
       </div>
