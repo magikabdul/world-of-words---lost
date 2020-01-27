@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import HomePage from '../layouts/Home';
 import ErrorPage from '../pages/Error';
-import LoginPage from '../layouts/Login';
+import LoginPage from '../layouts/Login/Login';
 
 class WowApplication extends Component {
   state = {
