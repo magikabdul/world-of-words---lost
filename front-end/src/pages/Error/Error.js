@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import '../scss/error.scss';
+import './error.scss';
 
 const Error = () => {
   return (
