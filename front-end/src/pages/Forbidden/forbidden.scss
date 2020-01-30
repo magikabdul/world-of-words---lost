@@ -1,0 +1,48 @@
+.forbidden {
+  height: 100vh;
+  background-color: white;
+  margin: auto;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  &--header {
+    font-family: 'Sigmar One', cursive;
+    font-size: 10rem;
+    padding-top: 20%;
+    background-image: url('../../images/forbidden.jpg');
+    background-size: cover;
+    background-position: center;
+    background-clip: text;
+    color: transparent;
+  }
+  &--title {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
+  &--message {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+  &--button {
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 5rem auto 0;
+    background-color: blue;
+    width: 200px;
+    color: white;
+    font-weight: 700;
+    padding: 20px;
+    border-radius: 10px;
+    transition: 0.5s;
+    &:hover {
+      background-color: rgba(0, 0, 255, 0.7);
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .forbidden--header {
+    font-size: 3rem;
+  }
+}
