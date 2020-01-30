@@ -3,15 +3,17 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import HomePage from '../layouts/Home';
-import ErrorPage from '../pages/Error';
+import ErrorPage from '../pages/Error/Error';
 import LoginPage from '../layouts/Login/Login';
 import RegisterPage from '../layouts/Register/Register';
+import Dictionary from '../layouts/Admin/Dictionary/Dictionary';
 
 class WowApplication extends Component {
   state = {
     user: {
       name: '',
-      isLogged: false
+      isLogged: false,
+      isSuperUser: false
     }
   };
 
@@ -37,6 +39,14 @@ class WowApplication extends Component {
             <RegisterPage
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
+            />
+          </Route>
+
+          <Route path='/admin'>
+            <Dictionary
+              isLogged={this.state.user.isLogged}
+              name={this.state.user.name}
+              isSuperUser={this.state.user.isSuperUser}
             />
           </Route>
 
