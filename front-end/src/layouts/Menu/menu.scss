@@ -1,0 +1,23 @@
+.menu {
+  background: rgba(255, 255, 255, 0.1);
+  width: 15rem;
+  height: 100vh;
+  &--header {
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    &__logo {
+      background-image: url('../../images/words_icon.png');
+      background-size: cover;
+      background-position: center;
+      width: 2rem;
+      height: 2rem;
+      margin: 5px 20px;
+    }
+    &__title {
+      color: white;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+    }
+  }
+}
