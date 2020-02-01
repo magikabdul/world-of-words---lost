@@ -1,7 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {
+  IconDashboard,
+  IconUser,
+  IconDatabase,
+  IconLogout
+} from '../../images/images-svg';
+
 import HorizontalSpacer from '../../components/HorizontalSpacer/HorizontalSpacer';
+import MenuItem from '../../components/MenuItem/MenuItem';
 
 import './menu.scss';
 
@@ -9,7 +17,7 @@ const Container = styled.div.attrs(props => ({
   position: props.position || '0px'
 }))`
   transform: translateX(${props => props.position});
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.5);
   width: 15rem;
   height: 100vh;
 `;
@@ -40,6 +48,16 @@ const Menu = () => {
         <ApplicationName>world of words</ApplicationName>
       </Header>
       <HorizontalSpacer />
+      <MenuItem title='dashboard' isSelected={false} icon={<IconDashboard />} />
+      <MenuItem title='user details' isSelected={false} icon={<IconUser />} />
+      <HorizontalSpacer />
+      <MenuItem
+        title='words database'
+        isSelected={false}
+        icon={<IconDatabase />}
+      />
+      <HorizontalSpacer />
+      <MenuItem title='logout' isSelected={false} icon={<IconLogout />} />
     </Container>
   );
 };

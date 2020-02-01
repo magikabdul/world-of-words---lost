@@ -13,7 +13,7 @@ const Home = ({ isLogged, isSuperUser, name }) => {
     <>
       {!isLogged && <Header isLogged={isLogged} name={name} />}
       {!isLogged && <Hero />}
-      {isLogged && open && <Menu />}
+      {isLogged && open && <Menu onClick={setOpen} />}
     </>
   );
 };
