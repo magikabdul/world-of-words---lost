@@ -8,7 +8,6 @@ import WorkingAreaHeader from '../../../components/WorkingArea/WorkingAreaHeader
 import WorkingAreaBoard from '../../../components/WorkingArea/WorkingAreaBoard';
 import WorkingAreaRow from '../../../components/WorkingArea/WorkingAreaRow';
 import BoxWithIcon from '../../../components/WorkingArea/Boxes/BoxWithIcon';
-import { updateExpression } from '@babel/types';
 
 export default class WordsDatabase extends Component {
   state = {
