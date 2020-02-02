@@ -11,6 +11,7 @@ const Container = styled.div.attrs(props => ({
   transition: 0.3s;
   color: white;
   border-radius: 3px;
+  cursor: pointer;
   &:hover {
     color: ${props => (props.isSelected ? 'white' : '#00acc1')};
   }
