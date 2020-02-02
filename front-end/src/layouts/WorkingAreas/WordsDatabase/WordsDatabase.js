@@ -8,6 +8,7 @@ import WorkingAreaHeader from '../../../components/WorkingArea/WorkingAreaHeader
 import WorkingAreaBoard from '../../../components/WorkingArea/WorkingAreaBoard';
 import WorkingAreaRow from '../../../components/WorkingArea/WorkingAreaRow';
 import BoxWithIcon from '../../../components/WorkingArea/Boxes/BoxWithIcon';
+import HorizontalSpacer from '../../../components/HorizontalSpacer/HorizontalSpacer';
 
 export default class WordsDatabase extends Component {
   state = {
@@ -33,9 +34,20 @@ export default class WordsDatabase extends Component {
               iconMessage={<IconCalendar />}
               message='updated today'
             />
-            <BoxWithIcon />
-            <BoxWithIcon />
+            <BoxWithIcon
+              colorStart={color.greenStart}
+              colorEnd={color.greenEnd}
+              title='newest word'
+              message='added by'
+            />
+            <BoxWithIcon
+              colorStart={color.blueStart}
+              colorEnd={color.blueEnd}
+              title='most active manager'
+              message='last seen'
+            />
           </WorkingAreaRow>
+          <HorizontalSpacer color='rgba(0, 0, 0, 0.1)' />
         </WorkingAreaBoard>
       </WorkingAreaContainer>
     );
