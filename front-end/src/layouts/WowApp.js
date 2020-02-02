@@ -6,16 +6,25 @@ import HomePage from '../layouts/Home';
 import ErrorPage from '../pages/Error/Error';
 import LoginPage from '../layouts/Login/Login';
 import RegisterPage from '../layouts/Register/Register';
-import Dictionary from '../layouts/Admin/Dictionary/Dictionary';
+// import Dictionary from '../layouts/Admin/Dictionary/Dictionary';
 
 class WowApplication extends Component {
   state = {
     user: {
-      name: '',
-      isLogged: false,
+      name: 'magikabdul',
+      isLogged: true,
       isSuperUser: false
     }
   };
+
+  handleAuthorization = prevState =>
+    this.setState({
+      user: {
+        name: 'magikabdul',
+        isLogged: !prevState.user.isLogged,
+        isSuperUser: true
+      }
+    });
 
   render() {
     return (
@@ -25,6 +34,8 @@ class WowApplication extends Component {
             <HomePage
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
+              isSuperUser={this.state.user.isSuperUser}
+              handleAuthorization={this.handleAuthorization}
             />
           </Route>
 
@@ -42,13 +53,13 @@ class WowApplication extends Component {
             />
           </Route>
 
-          <Route path='/admin'>
+          {/* <Route path='/admin'>
             <Dictionary
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
               isSuperUser={this.state.user.isSuperUser}
             />
-          </Route>
+          </Route> */}
 
           <Route>
             <ErrorPage />

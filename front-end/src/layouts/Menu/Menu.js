@@ -20,6 +20,7 @@ const Container = styled.div.attrs(props => ({
   background: rgba(0, 0, 0, 0.5);
   width: 15rem;
   height: 100vh;
+  box-shadow: 0 0 20px;
 `;
 
 const Header = styled.div`
@@ -40,7 +41,8 @@ const ApplicationName = styled.div`
   color: white;
 `;
 
-const Menu = () => {
+const Menu = ({ handleAuthorization }) => {
+  console.log(handleAuthorization);
   return (
     <Container position=''>
       <Header>
@@ -57,7 +59,12 @@ const Menu = () => {
         icon={<IconDatabase />}
       />
       <HorizontalSpacer />
-      <MenuItem title='logout' isSelected={false} icon={<IconLogout />} />
+      <MenuItem
+        title='logout'
+        isSelected={false}
+        icon={<IconLogout />}
+        onclick={handleAuthorization}
+      />
     </Container>
   );
 };
