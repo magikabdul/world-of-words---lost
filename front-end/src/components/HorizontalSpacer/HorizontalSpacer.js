@@ -2,10 +2,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-const Wrapper = styled.div.attrs(props => ({
-  size: props.size || '90%'
-}))`
-  width: ${props => props.size};
+const Wrapper = styled.div`
+  width: ${props => props.size || '90%'};
   height: 1rem;
   margin: 5px auto;
   position: relative;
@@ -13,7 +11,7 @@ const Wrapper = styled.div.attrs(props => ({
   &:after {
     content: '';
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: ${props => props.color || 'rgba(255, 255, 255, 0.5)'};
     position: absolute;
     top: 50%;
     left: 0;
@@ -21,8 +19,8 @@ const Wrapper = styled.div.attrs(props => ({
   }
 `;
 
-const HorizontalSpacer = ({ size }) => {
-  return <Wrapper size={size}></Wrapper>;
+const HorizontalSpacer = ({ size, color }) => {
+  return <Wrapper size={size} color={color}></Wrapper>;
 };
 
 export default HorizontalSpacer;
