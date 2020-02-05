@@ -1,60 +1,142 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const FormContainer = styled.div`
-  margin: 1rem 3rem 0;
-  padding: 1rem;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
-  height: 63%;
+const FormContainer = styled.form`
+  padding: 1rem 1.25rem;
+  width: 80%;
+  margin: 0.5rem auto 0;
 `;
 
-const FormHeader = styled.div`
-  display: flex;
+const InputArea = styled.div`
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  position: relative;
 `;
 
-const FormHeaderIcon = styled.div`
-  width: 3.5rem;
-  height: 3.5rem;
-  color: white;
+const InputLabel = styled.label.attrs(props => ({
+  className: 'form-label'
+}))`
+  font-weight: 300;
+  text-transform: capitalize;
+
+  position: absolute;
+  top: 5px;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.8rem;
+  color: #aaa;
+`;
+
+const InputText = styled.input.attrs(props => ({
+  type: 'text',
+  placeholder: props.placeholder
+}))`
+  box-sizing: border-box;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #495057;
+  padding: 0.375rem 0;
+  background: transparent;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form-label {
+    font-size: 1rem;
+    cursor: text;
+    top: 2rem;
+  }
+
+  &:focus {
+    ~ .form-label {
+      top: 5px;
+      font-size: 0.8rem;
+    }
+    ~ span {
+      width: 100%;
+      left: 0;
+    }
+    padding-bottom: 6px;
+    /* border-bottom: 2px solid ${props => props.color}; */
+  }
+`;
+
+const InputUnderline = styled.span`
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: ${props => props.color};
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transition: all 200ms ease-out;
+`;
+
+const SubmitButton = styled.button.attrs(props => ({
+  type: 'submit'
+}))`
   background: linear-gradient(
     60deg,
     ${props => props.colorStart || 'lightgray'},
     ${props => props.colorEnd || 'gray'}
   );
-  margin-right: 1rem;
-  transform: translateY(-2rem);
-`;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  border-radius: 3px;
+  margin-top: 5rem;
+  width: 50%;
+  transform: translateX(100%);
+  letter-spacing: 1px;
+  transition: 0.3s;
 
-const FormHeaderIconArea = styled.div`
-  width: 2rem;
-  height: 2rem;
-  margin: 0.75rem auto;
+  &:hover {
+    box-shadow: 0 0px 10px 3px rgba(0, 0, 0, 0.14);
+  }
 `;
-
-const FormHeaderTitle = styled.h3`
-  color: #3c4858;
-  font-weight: 300;
-  text-transform: capitalize;
-  transform: translateY(-0.2rem);
-`;
-
-const WordInput = styled.div``;
 
 export default class FormAddWord extends Component {
   render() {
     return (
       <FormContainer>
-        <FormHeader>
-          <FormHeaderIcon
-            colorStart={this.props.colorStart}
-            colorEnd={this.props.colorEnd}
-          >
-            <FormHeaderIconArea>{this.props.icon}</FormHeaderIconArea>
-          </FormHeaderIcon>
-          <FormHeaderTitle>{this.props.title}</FormHeaderTitle>
-        </FormHeader>
-        <WordInput>pol</WordInput>
-        <WordInput>eng</WordInput>
+        <InputArea>
+          <InputText
+            id='polish'
+            required
+            placeholder='enter polish '
+            color={this.props.colorStart}
+          />
+          <InputLabel htmlFor='polish'>enter polish word</InputLabel>
+          <InputUnderline color={this.props.colorStart} />
+        </InputArea>
+
+        <InputArea>
+          <InputText
+            id='english'
+            required
+            placeholder='enter english '
+            color={this.props.colorStart}
+          />
+          <InputLabel htmlFor='english'>enter english word</InputLabel>
+          <InputUnderline color={this.props.colorStart} />
+        </InputArea>
+
+        <SubmitButton
+          colorStart={this.props.colorStart}
+          colorEnd={this.props.colorEnd}
+        >
+          submit
+        </SubmitButton>
       </FormContainer>
     );
   }
