@@ -7,7 +7,7 @@ import {
   IconWrite,
   IconErase,
   IconVerify
-} from '../../../images/images-svg';
+} from '../../../modules/images-svg';
 
 import WorkingAreaContainer from '../../../components/WorkingArea/WorkingAreaContainer';
 import WorkingAreaHeader from '../../../components/WorkingArea/WorkingAreaHeader';
