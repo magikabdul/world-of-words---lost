@@ -6,7 +6,7 @@ import {
   IconUser,
   IconDatabase,
   IconLogout
-} from '../../images/images-svg';
+} from '../../modules/images-svg';
 
 import HorizontalSpacer from '../../components/HorizontalSpacer/HorizontalSpacer';
 import MenuItem from '../../components/MenuItem/MenuItem';
