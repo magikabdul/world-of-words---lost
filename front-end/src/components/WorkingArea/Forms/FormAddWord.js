@@ -106,6 +106,27 @@ const SubmitButton = styled.button.attrs(props => ({
 `;
 
 export default class FormAddWord extends Component {
+  state = {
+    polish: '',
+    english: ''
+  };
+
+  handleChange = e => {
+    if (e.target.id === 'polish') {
+      this.setState({ polish: e.target.value });
+    } else if (e.target.id === 'english') {
+      this.setState({ english: e.target.value });
+    }
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState({
+      polish: '',
+      english: ''
+    });
+  };
+
   render() {
     return (
       <FormContainer>
@@ -115,6 +136,8 @@ export default class FormAddWord extends Component {
             required
             placeholder='enter polish '
             color={this.props.colorStart}
+            value={this.state.polish}
+            onChange={this.handleChange}
           />
           <InputLabel htmlFor='polish'>enter polish word</InputLabel>
           <InputUnderline color={this.props.colorStart} />
@@ -126,6 +149,8 @@ export default class FormAddWord extends Component {
             required
             placeholder='enter english '
             color={this.props.colorStart}
+            value={this.state.english}
+            onChange={this.handleChange}
           />
           <InputLabel htmlFor='english'>enter english word</InputLabel>
           <InputUnderline color={this.props.colorStart} />
@@ -134,6 +159,7 @@ export default class FormAddWord extends Component {
         <SubmitButton
           colorStart={this.props.colorStart}
           colorEnd={this.props.colorEnd}
+          onClick={this.handleSubmit}
         >
           submit
         </SubmitButton>
