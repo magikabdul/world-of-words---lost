@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import ModalConfirmAdding from '../../Modals/ModalConfirmAdding';
+import ModalAdded from '../../../components/Modals/ModalAdded';
+
 const FormContainer = styled.form`
   padding: 1rem 1.25rem;
   width: 80%;
@@ -107,8 +110,10 @@ const SubmitButton = styled.button.attrs(props => ({
 
 export default class FormAddWord extends Component {
   state = {
-    polish: '',
-    english: ''
+    polish: 'test1',
+    english: 'test2',
+    showConfirmation: false,
+    successMesaage: false
   };
 
   handleChange = e => {
@@ -122,9 +127,24 @@ export default class FormAddWord extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({
-      polish: '',
-      english: ''
+      showConfirmation: true
     });
+  };
+
+  handleAddToDb = e => {
+    if (e === false) {
+      this.setState({ showConfirmation: false });
+    } else {
+      //api add to db
+      this.setState({
+        showConfirmation: false,
+        polish: '',
+        english: '',
+        successMesaage: true
+      });
+
+      setTimeout(() => this.setState({ successMesaage: false }), 3000);
+    }
   };
 
   render() {
@@ -163,6 +183,14 @@ export default class FormAddWord extends Component {
         >
           submit
         </SubmitButton>
+        {this.state.showConfirmation ? (
+          <ModalConfirmAdding
+            polishWord={this.state.polish}
+            englishWord={this.state.english}
+            handleAddToDb={this.handleAddToDb}
+          />
+        ) : null}
+        {this.state.successMesaage ? <ModalAdded /> : null}
       </FormContainer>
     );
   }
