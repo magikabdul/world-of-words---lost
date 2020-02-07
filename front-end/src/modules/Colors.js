@@ -13,6 +13,9 @@ const blueEnd = '#00acc1';
 const violetStart = '#ab47bc';
 const violetEnd = '#8e24aa';
 
+const WARNING = '#f44336';
+const SUCCESS = '#4caf50';
+
 export {
   orangeStart,
   orangeEnd,
@@ -23,5 +26,7 @@ export {
   blueStart,
   blueEnd,
   violetStart,
-  violetEnd
+  violetEnd,
+  WARNING,
+  SUCCESS
 };
