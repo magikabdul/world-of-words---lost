@@ -1,31 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import * as color from '../../modules/Colors';
 import { IconConfirm } from '../../modules/images-svg';
 
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ModalBox = styled.div`
-  width: 50%;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-`;
+import ModalContainer from '../../components/Modals/Items/ModalContainer';
+import ModalBox from '../../components/Modals/Items/ModalBox';
+import ModalTitle from '../../components/Modals/Items/ModalTitle';
+import ModalMessage from '../../components/Modals/Items/ModalMessage';
 
 const IconBox = styled.div`
   color: #5cb85c;
@@ -49,19 +30,6 @@ const IconBox = styled.div`
   }
 `;
 
-const ModalTitle = styled.h3`
-  color: #3c4858;
-  font-size: 2.2rem;
-  font-weight: 300;
-  margin-top: 2rem;
-`;
-
-const ModalMessage = styled.span`
-  color: #aaa;
-  margin: 2rem 0;
-  font-weight: 500;
-`;
-
 const ModalAdded = () => {
   useEffect(() => {
     const id = setTimeout(() => setShow(true), 2000);
@@ -75,8 +43,8 @@ const ModalAdded = () => {
         <IconBox>
           {show ? <IconConfirm width='3rem' height='3rem' /> : null}
         </IconBox>
-        <ModalTitle>Added!</ModalTitle>
-        <ModalMessage>Record added to database.</ModalMessage>
+        <ModalTitle title='Added!' />
+        <ModalMessage message='Record added to database.' />
       </ModalBox>
     </ModalContainer>
   );

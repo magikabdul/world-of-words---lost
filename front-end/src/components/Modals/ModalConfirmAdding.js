@@ -1,52 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import * as color from '../../modules/Colors';
+import * as colors from '../../modules/Colors';
 import { IconExclamation } from '../../modules/images-svg';
 
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* animation: blur 2s backwards;
-
-  @keyframes blur {
-    0% {
-      filter: blur(0px);
-    }
-
-    100% {
-      filter: blur(4px);
-    }
-  } */
-`;
-
-const ModalBox = styled.div`
-  width: 50%;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-`;
+import ModalContainer from '../../components/Modals/Items/ModalContainer';
+import ModalBox from '../../components/Modals/Items/ModalBox';
+import ModalTitle from '../../components/Modals/Items/ModalTitle';
+import Button from '../../components/Buttons/Button';
 
 const ModalIconContainer = styled.div`
   color: rgb(238, 162, 54);
   margin: 2rem auto;
-`;
-
-const ModalTitle = styled.h3`
-  color: #3c4858;
-  font-size: 2.2rem;
-  font-weight: 300;
 `;
 
 const ButtonContainer = styled.div`
@@ -54,30 +19,6 @@ const ButtonContainer = styled.div`
   width: 90%;
   display: flex;
   justify-content: center;
-`;
-
-const Button = styled.button.attrs(props => ({
-  type: 'button'
-}))`
-  color: white;
-  font-weight: 500;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  background: ${props => props.background};
-  margin: 0 1rem;
-  padding: 0.8rem 2rem;
-  border: none;
-  border-radius: 3px;
-  transition: 0.2s;
-  box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42),
-    0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(76, 175, 80, 0.2);
-  width: 40%;
-
-  &:hover {
-    box-shadow: 0 14px 26px -12px rgba(76, 175, 80, 0.42),
-      0 4px 23px 10px rgba(0, 0, 0, 0.12),
-      0 8px 10px -5px rgba(76, 175, 80, 0.2);
-  }
 `;
 
 const InfoContainer = styled.div`
@@ -123,20 +64,20 @@ const ModalConfirmAdding = ({ polishWord, englishWord, handleAddToDb }) => {
             <InfoMessage>{englishWord}</InfoMessage>
           </InfoBox>
         </InfoContainer>
-        <ModalTitle>Is that correct?</ModalTitle>
+        <ModalTitle title='Is that correct?'></ModalTitle>
         <ButtonContainer>
           <Button
-            background={color.WARNING}
+            background={colors.DANGER}
+            width={'40%'}
             onClick={() => handleAddToDb(false)}
-          >
-            cancel
-          </Button>
+            text={'cancel'}
+          />
           <Button
-            background={color.SUCCESS}
+            background={colors.SUCCESS}
+            width={'40%'}
             onClick={() => handleAddToDb(true)}
-          >
-            yes, save it!
-          </Button>
+            text={'yes, save it!'}
+          />
         </ButtonContainer>
       </ModalBox>
     </ModalContainer>
