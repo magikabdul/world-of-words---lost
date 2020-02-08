@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import * as color from '../../../modules/Colors';
-
 const BoxContainer = styled.div`
   padding: 0 1rem;
   box-sizing: border-box;

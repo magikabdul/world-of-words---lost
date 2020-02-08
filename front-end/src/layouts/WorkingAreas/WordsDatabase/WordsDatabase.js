@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import * as color from '../../../modules/Colors';
+import * as colors from '../../../modules/Colors';
 import {
   IconCalendar,
   IconWords,
@@ -33,8 +33,8 @@ export default class WordsDatabase extends Component {
           <WorkingAreaRow>
             <BoxWithIcon
               icon={<IconWords />}
-              colorStart={color.orangeStart}
-              colorEnd={color.orangeEnd}
+              colorStart={colors.orangeStart}
+              colorEnd={colors.orangeEnd}
               title='database size'
               value={this.state.database.size}
               units=' words'
@@ -42,14 +42,14 @@ export default class WordsDatabase extends Component {
               message='updated today'
             />
             <BoxWithIcon
-              colorStart={color.greenStart}
-              colorEnd={color.greenEnd}
+              colorStart={colors.greenStart}
+              colorEnd={colors.greenEnd}
               title='newest word'
               message='added by'
             />
             <BoxWithIcon
-              colorStart={color.blueStart}
-              colorEnd={color.blueEnd}
+              colorStart={colors.blueStart}
+              colorEnd={colors.blueEnd}
               title='most active manager'
               message='last seen'
             />
@@ -58,8 +58,8 @@ export default class WordsDatabase extends Component {
           <WorkingAreaRow>
             <ManagerArea
               headerTitle='Tasks: '
-              colorStart={color.violetStart}
-              colorEnd={color.violetEnd}
+              colorStart={colors.violetStart}
+              colorEnd={colors.violetEnd}
               modesNumber={3}
               modeName1='add'
               modeIcon1={<IconWrite />}

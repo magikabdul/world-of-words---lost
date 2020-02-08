@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import ModalConfirmAdding from '../../Modals/ModalConfirmAdding';
 import ModalAdded from '../../../components/Modals/ModalAdded';
+import ModalError from '../../../components/Modals/ModalError';
 
 const FormContainer = styled.form`
   padding: 1rem 1.25rem;
@@ -110,10 +111,11 @@ const SubmitButton = styled.button.attrs(props => ({
 
 export default class FormAddWord extends Component {
   state = {
-    polish: 'test1',
-    english: 'test2',
+    polish: '',
+    english: '',
     showConfirmation: false,
-    successMesaage: false
+    successMesaage: false,
+    errorMessage: false
   };
 
   handleChange = e => {
@@ -126,9 +128,12 @@ export default class FormAddWord extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState({
-      showConfirmation: true
-    });
+
+    if (this.state.polish.length < 1 || this.state.english.length < 1) {
+      this.setState({ errorMessage: true });
+    } else {
+      this.setState({ showConfirmation: true });
+    }
   };
 
   handleAddToDb = e => {
@@ -145,6 +150,10 @@ export default class FormAddWord extends Component {
 
       setTimeout(() => this.setState({ successMesaage: false }), 3000);
     }
+  };
+
+  handleErrorMessageClose = () => {
+    this.setState({ errorMessage: false });
   };
 
   render() {
@@ -191,6 +200,9 @@ export default class FormAddWord extends Component {
           />
         ) : null}
         {this.state.successMesaage ? <ModalAdded /> : null}
+        {this.state.errorMessage ? (
+          <ModalError handleErrorMessageClose={this.handleErrorMessageClose} />
+        ) : null}
       </FormContainer>
     );
   }
