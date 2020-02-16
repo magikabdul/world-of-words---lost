@@ -12,7 +12,7 @@ class WowApplication extends Component {
   state = {
     user: {
       name: 'magikabdul',
-      isLogged: true,
+      isLogged: false,
       isSuperUser: false
     }
   };
