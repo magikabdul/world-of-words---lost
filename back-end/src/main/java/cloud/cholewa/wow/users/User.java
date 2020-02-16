@@ -1,63 +1,53 @@
 package cloud.cholewa.wow.users;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String userName;
+    @NotNull
     private String password;
-    private PrivilegeLevel privilegeLevel;
-    private LocalDate createdAt;
+    @NotNull
+    private String mail;
+    //    private File avatar;
+    @NotNull
+    private PrivilegeLevel privilegeLevel = PrivilegeLevel.USER;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastLogged;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String userName, String password, PrivilegeLevel privilegeLevel) {
+    public User(String firstName, String lastName, String userName, String password, String mail, PrivilegeLevel privilegeLevel) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.mail = mail;
         this.privilegeLevel = privilegeLevel;
-        this.createdAt = LocalDate.now();
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.createdAt = LocalDateTime.now();
     }
 
     @Override
@@ -72,10 +62,6 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     @Override
@@ -98,23 +84,14 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public PrivilegeLevel getPrivilegeLevel() {
-        return privilegeLevel;
-    }
-
-    public void setPrivilegeLevel(PrivilegeLevel privilegeLevel) {
-        this.privilegeLevel = privilegeLevel;
-    }
-
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
     }
 }
