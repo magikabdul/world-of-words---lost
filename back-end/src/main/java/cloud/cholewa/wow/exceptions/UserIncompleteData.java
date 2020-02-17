@@ -1,10 +1,10 @@
-package cloud.cholewa.wow.users.exceptions;
+package cloud.cholewa.wow.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.PARTIAL_CONTENT)
-public class UserIncompleteData extends Exception {
+@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+public class UserIncompleteData extends RuntimeException {
 
     public UserIncompleteData(String message) {
         super(message);

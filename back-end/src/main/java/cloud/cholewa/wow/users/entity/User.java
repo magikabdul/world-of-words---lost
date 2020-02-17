@@ -1,6 +1,8 @@
-package cloud.cholewa.wow.users;
+package cloud.cholewa.wow.users.entity;
 
+import cloud.cholewa.wow.users.boundary.PrivilegeLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +18,7 @@ import java.util.Collections;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -36,19 +39,6 @@ public class User implements UserDetails {
     private PrivilegeLevel privilegeLevel = PrivilegeLevel.USER;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogged;
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String userName, String password, String mail, PrivilegeLevel privilegeLevel) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.mail = mail;
-        this.privilegeLevel = privilegeLevel;
-        this.createdAt = LocalDateTime.now();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
