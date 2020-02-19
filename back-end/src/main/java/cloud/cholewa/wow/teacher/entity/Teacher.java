@@ -1,6 +1,7 @@
-package cloud.cholewa.wow.users.entity;
+package cloud.cholewa.wow.teacher.entity;
 
-import cloud.cholewa.wow.users.boundary.PrivilegeLevel;
+import cloud.cholewa.wow.configuration.PrivilegeLevel;
+import cloud.cholewa.wow.students.entity.Student;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "teachers")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class Teacher implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,9 +42,13 @@ public class User implements UserDetails {
     private LocalDateTime createdAt;
     private LocalDateTime lastLogged;
 
+    @OneToMany
+    @JoinColumn(name = "teacher")
+    private Set<Student> studentSet;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_MANAGER"));
     }
 
     public String getPassword() {

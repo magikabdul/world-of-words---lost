@@ -1,47 +1,47 @@
-package cloud.cholewa.wow.users.boundary;
+package cloud.cholewa.wow.teacher.boundary;
 
 import cloud.cholewa.wow.exceptions.UserIncompleteData;
-import cloud.cholewa.wow.users.entity.User;
+import cloud.cholewa.wow.teacher.entity.Teacher;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserValidator {
+public class TeacherValidator {
 
-    public void validateCreateUserData(User user) {
-        if (user.getFirstName() != null) {
-            if (user.getFirstName().length() < 1) {
+    public void validateCreateUserData(Teacher teacher) {
+        if (teacher.getFirstName() != null) {
+            if (teacher.getFirstName().length() < 1) {
                 throw new UserIncompleteData("First name incorrect");
             }
         } else {
             throw new UserIncompleteData("First name field is missing");
         }
 
-        if (user.getLastName() != null) {
-            if (user.getLastName().length() < 1) {
+        if (teacher.getLastName() != null) {
+            if (teacher.getLastName().length() < 1) {
                 throw new UserIncompleteData("Last name incorrect");
             }
         } else {
             throw new UserIncompleteData("Last name field is missing");
         }
 
-        if (user.getUsername() != null) {
-            if (user.getUsername().length() < 1) {
+        if (teacher.getUsername() != null) {
+            if (teacher.getUsername().length() < 1) {
                 throw new UserIncompleteData("User name incorrect");
             }
         } else {
             throw new UserIncompleteData("User name field is missing");
         }
 
-        if (user.getPassword() != null) {
-            if (user.getPassword().length() < 8) {
+        if (teacher.getPassword() != null) {
+            if (teacher.getPassword().length() < 8) {
                 throw new UserIncompleteData("Password incorrect or too short");
             }
         } else {
             throw new UserIncompleteData("Password field is missing");
         }
 
-        if (user.getMail() != null) {
-            if (user.getMail().length() < 1) {
+        if (teacher.getMail() != null) {
+            if (teacher.getMail().length() < 1) {
                 throw new UserIncompleteData("Mail address incorrect");
             }
         } else {

@@ -1,4 +1,4 @@
-package cloud.cholewa.wow.users.boundary;
+package cloud.cholewa.wow.configuration;
 
 public enum PrivilegeLevel {
     USER, MANAGER, CREATOR, ADMIN

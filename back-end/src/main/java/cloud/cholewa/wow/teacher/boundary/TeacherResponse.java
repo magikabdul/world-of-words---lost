@@ -1,16 +1,18 @@
-package cloud.cholewa.wow.users.boundary;
+package cloud.cholewa.wow.teacher.boundary;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class UserResponse {
+public class TeacherResponse {
     private String firstName;
     private String lastName;
     private String userName;
