@@ -1,6 +1,7 @@
 package cloud.cholewa.wow.teacher.boundary;
 
 import cloud.cholewa.wow.configuration.PrivilegeLevel;
+import cloud.cholewa.wow.students.entity.Student;
 import cloud.cholewa.wow.teacher.control.TeacherService;
 import cloud.cholewa.wow.teacher.entity.Teacher;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class TeacherApi {
         teacherValidator.validateCreateUserData(teacher);
         teacherService.isUserExistingInDatabase(teacher.getUsername());
         teacherService.isMailExistingInDatabase(teacher.getMail());
-        TeacherResponse teacherResponse = teacherService.addUser(teacher, PrivilegeLevel.MANAGER);
+        TeacherResponse teacherResponse = teacherService.addTeacher(teacher, PrivilegeLevel.MANAGER);
 
         return new ResponseEntity<>(teacherResponse, HttpStatus.CREATED);
     }
@@ -35,19 +36,24 @@ public class TeacherApi {
         return "login";
     }
 
-    @DeleteMapping("users/{id}")
+    @DeleteMapping("/teacher/{id}")
     public ResponseEntity<TeacherResponse> deleteUser(@PathVariable Long id) {
-        TeacherResponse teacherResponse = teacherService.deleteUser(id);
+        TeacherResponse teacherResponse = teacherService.deleteTeacher(id);
 
         return new ResponseEntity<>(teacherResponse, HttpStatus.OK);
     }
 
-    @PutMapping("users/{id}")
+    @PutMapping("/teacher/{id}")
     public ResponseEntity<TeacherResponse> updateUser(@RequestBody Teacher teacher) {
         //TODO
         return new ResponseEntity<>(new TeacherResponse(), HttpStatus.OK);
     }
 
+    @PostMapping("/teacher/{id}/student")
+    public ResponseEntity<TeacherResponse> addStudent(@PathVariable Long id, @RequestBody Student student) {
+        TeacherResponse teacherResponse = teacherService.addNewStudent(id, student);
+        return new ResponseEntity<>(teacherResponse, HttpStatus.OK);
+    }
 
 
 
