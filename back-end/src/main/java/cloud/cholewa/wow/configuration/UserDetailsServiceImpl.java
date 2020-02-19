@@ -1,6 +1,6 @@
-package cloud.cholewa.wow.security;
+package cloud.cholewa.wow.configuration;
 
-import cloud.cholewa.wow.users.boundary.UserRepository;
+import cloud.cholewa.wow.teacher.boundary.TeacherRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private TeacherRepository teacherRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserDetailsServiceImpl(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepository.findByUserName(s).orElseThrow(() -> new UsernameNotFoundException("User " + s + " not found"));
+        return teacherRepository.findByUserName(s).orElseThrow(() -> new UsernameNotFoundException("User " + s + " not found"));
     }
 }
