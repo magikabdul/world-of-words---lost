@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TeacherValidator {
 
-    public void validateCreateUserData(Teacher teacher) {
+    public void validateCreateTeacherData(Teacher teacher) {
         if (teacher.getFirstName() != null) {
             if (teacher.getFirstName().length() < 1) {
                 throw new UserIncompleteData("First name incorrect");
@@ -47,6 +47,5 @@ public class TeacherValidator {
         } else {
             throw new UserIncompleteData("Mail field is missing");
         }
-
     }
 }
