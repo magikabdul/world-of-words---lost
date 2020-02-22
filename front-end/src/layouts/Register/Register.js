@@ -1,9 +1,152 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { userService } from '../../services';
 
 import Header from '../../components/Header/Header';
+
+const Register = ({ isLogged, name }) => {
+  const history = useHistory();
+  const [error, setError] = useState(null);
+
+  const [form, setForm] = useState({
+    userName: '',
+    firstName: '',
+    lastName: '',
+    password1: '',
+    password2: '',
+    email: '',
+    errorMessage: ''
+  });
+
+  const updateForm = e => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+
+    setError(false);
+  };
+
+  const handleSubmit = async e => {
+    const errors = userService.validateRegistration(form);
+    if (errors) {
+      // sprawdzaj czy coś tam będziesz miał w tej tablicy
+      setForm({
+        ...form,
+        errorMessage: errors
+      });
+      setError(true);
+    } else {
+      try {
+        const response = await userService.register(form);
+        console.log(response);
+        if (response.status !== 201) {
+          const json = await response.json();
+          console.log(json);
+          setForm({
+            ...form,
+            errorMessage: json.message
+          });
+          setError(true);
+        } else {
+          setForm({
+            userName: '',
+            firstName: '',
+            lastName: '',
+            password1: '',
+            password2: '',
+            email: ''
+          });
+
+          history.push('/login');
+        }
+      } catch (e) {
+        setError(e);
+      }
+    }
+  };
+
+  return (
+    <>
+      <Header isLogged={isLogged} name={name} />
+      <Container>
+        <Title>sign up</Title>
+        <UnderLine />
+        <Link to='/login'>
+          <LinkToLogin>Already have an account?</LinkToLogin>
+        </Link>
+
+        <FormContainer>
+          <EntryBox width='90%'>
+            <Label htmlFor='userName'>user name</Label>
+            <Input
+              id='userName'
+              name='userName'
+              value={form.userName}
+              onChange={updateForm}
+            />
+          </EntryBox>
+          <UserContainer>
+            <EntryBox width='80%'>
+              <Label htmlFor='firstName'>first name</Label>
+              <Input
+                id='firstName'
+                name='firstName'
+                value={form.firstName}
+                onChange={updateForm}
+              />
+            </EntryBox>
+            <EntryBox width='80%'>
+              <Label htmlFor='lastName'>last name</Label>
+              <Input
+                id='lastName'
+                name='lastName'
+                value={form.lastName}
+                onChange={updateForm}
+              />
+            </EntryBox>
+          </UserContainer>
+          <EntryBox width='90%'>
+            <Label htmlFor='password1'>password</Label>
+            <Input
+              type='password'
+              id='password1'
+              name='password1'
+              value={form.password1}
+              onChange={updateForm}
+            />
+          </EntryBox>
+          <EntryBox width='90%'>
+            <Label htmlFor='password2'>re-Type Password</Label>
+            <Input
+              type='password'
+              id='password2'
+              name='password2'
+              value={form.password2}
+              onChange={updateForm}
+            />
+          </EntryBox>
+          <EntryBox width='90%'>
+            <Label htmlFor='email'>Email address</Label>
+            <Input
+              type='email'
+              id='email'
+              name='email'
+              value={form.email}
+              onChange={updateForm}
+            />
+          </EntryBox>
+          <Button onClick={handleSubmit}>register</Button>
+          {error ? <ErrorMessage>{form.errorMessage}</ErrorMessage> : null}
+        </FormContainer>
+      </Container>
+    </>
+  );
+};
+
+export default Register;
 
 const Container = styled.div`
   color: white;
@@ -91,114 +234,8 @@ const Button = styled.div`
   }
 `;
 
-const Register = ({ isLogged, name }) => {
-  const [error, setError] = useState(null);
-
-  const [form, setForm] = useState({
-    userName: '',
-    firstName: '',
-    lastName: '',
-    password1: '',
-    password2: '',
-    email: ''
-  });
-
-  const updateForm = e => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-    setError(false);
-  };
-
-  const handleSubmit = e => {
-    setForm({
-      userName: '',
-      firstName: '',
-      lastName: '',
-      password1: '',
-      password2: '',
-      email: ''
-    });
-    setError('error');
-  };
-
-  return (
-    <>
-      <Header isLogged={isLogged} name={name} />
-      <Container>
-        <Title>sign up</Title>
-        <UnderLine />
-        <Link to='/login'>
-          <LinkToLogin>Already have an account?</LinkToLogin>
-        </Link>
-
-        <FormContainer>
-          <EntryBox width='90%'>
-            <Label htmlFor='userName'>user name</Label>
-            <Input
-              id='userName'
-              name='userName'
-              value={form.userName}
-              onChange={updateForm}
-            ></Input>
-          </EntryBox>
-          <UserContainer>
-            <EntryBox width='80%'>
-              <Label htmlFor='firstName'>first name</Label>
-              <Input
-                id='firstName'
-                name='firstName'
-                value={form.firstName}
-                onChange={updateForm}
-              ></Input>
-            </EntryBox>
-            <EntryBox width='80%'>
-              <Label htmlFor='lastName'>last name</Label>
-              <Input
-                id='lastName'
-                name='lastName'
-                value={form.lastName}
-                onChange={updateForm}
-              ></Input>
-            </EntryBox>
-          </UserContainer>
-          <EntryBox width='90%'>
-            <Label htmlFor='password1'>password</Label>
-            <Input
-              type='password'
-              id='password1'
-              name='password1'
-              value={form.password1}
-              onChange={updateForm}
-            ></Input>
-          </EntryBox>
-          <EntryBox width='90%'>
-            <Label htmlFor='password2'>re-Type Password</Label>
-            <Input
-              type='password'
-              id='password2'
-              name='password2'
-              value={form.password2}
-              onChange={updateForm}
-            ></Input>
-          </EntryBox>
-          <EntryBox width='90%'>
-            <Label htmlFor='email'>Email address</Label>
-            <Input
-              type='email'
-              id='email'
-              name='email'
-              value={form.email}
-              onChange={updateForm}
-            ></Input>
-          </EntryBox>
-          <Button onClick={handleSubmit}>register</Button>
-          {error ? <Button>{error}</Button> : null}
-        </FormContainer>
-      </Container>
-    </>
-  );
-};
-
-export default Register;
+const ErrorMessage = styled.div`
+  color: red;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+`;

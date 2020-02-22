@@ -11,7 +11,7 @@ import RegisterPage from '../layouts/Register/Register';
 class WowApplication extends Component {
   state = {
     user: {
-      name: 'magikabdul',
+      name: '',
       isLogged: false,
       isSuperUser: false
     }
@@ -21,7 +21,7 @@ class WowApplication extends Component {
     this.setState({
       user: {
         name: 'magikabdul',
-        isLogged: !prevState.user.isLogged,
+        isLogged: true,
         isSuperUser: true
       }
     });
@@ -35,7 +35,7 @@ class WowApplication extends Component {
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
               isSuperUser={this.state.user.isSuperUser}
-              handleAuthorization={this.handleAuthorization}
+              //handleAuthorization={this.handleAuthorization}
             />
           </Route>
 
@@ -43,6 +43,7 @@ class WowApplication extends Component {
             <LoginPage
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
+              handleAuthorization={this.handleAuthorization}
             />
           </Route>
 
