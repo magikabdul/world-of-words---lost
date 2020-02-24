@@ -7,8 +7,10 @@ import lombok.Setter;
 @Setter
 public class UserResponse {
     private String status;
+    private Long id;
 
-    public UserResponse() {
+    public UserResponse(Long id) {
+        this.id = id;
         this.status = "authenticated";
     }
 }
