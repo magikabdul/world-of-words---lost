@@ -112,7 +112,7 @@ const Login = ({ isLogged, name, handleAuthorization }) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const errors = userService.validateLogin(form);
+    const errors = userService.validateAuthorization(form);
     if (errors) {
       setForm({
         ...form,
@@ -121,8 +121,7 @@ const Login = ({ isLogged, name, handleAuthorization }) => {
 
       setError(true);
     } else {
-      const response = await userService.login(form);
-      console.log(response);
+      const response = await userService.authorization(form);
 
       if (response.status !== 200) {
         setForm({
@@ -131,7 +130,9 @@ const Login = ({ isLogged, name, handleAuthorization }) => {
         });
         setError(true);
       } else {
-        handleAuthorization();
+        const json = await response.json();
+        const ids = await json.id;
+        handleAuthorization(ids, form); //poprawne zapisanie user-a w storage i weryfikacja jego uprawnień
         history.push('/');
       }
     }

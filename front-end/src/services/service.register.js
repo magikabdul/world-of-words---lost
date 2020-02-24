@@ -3,16 +3,21 @@ import { HEADER } from '../helpers/index';
 const urlApi = 'http://localhost:8080/api';
 
 export const userService = {
-  login,
-  validateLogin,
+  authorization,
+  validateAuthorization,
   register,
   validateRegistration
 };
 
-async function login(form) {
+async function authorization(form) {
+  const body = {
+    userName: form.userName
+  };
+
   const requestOptions = {
     method: 'POST',
-    headers: HEADER.AUTHORIZATION(form.userName, form.password)
+    headers: HEADER.AUTHORIZATION(form.userName, form.password),
+    body: JSON.stringify(body)
   };
 
   const response = await fetch(`${urlApi}/login`, requestOptions);
@@ -34,9 +39,8 @@ async function register(form) {
     body: JSON.stringify(body)
   };
 
-  const json = await fetch(`${urlApi}/register`, requestOptions);
-  //const response = await json.json();
-  return json;
+  const response = await fetch(`${urlApi}/register`, requestOptions);
+  return response;
 }
 
 function validateRegistration(form) {
@@ -76,7 +80,7 @@ function validateRegistration(form) {
   return null; // tutaj zwracasz tą tablicę błędów
 }
 
-function validateLogin(form) {
+function validateAuthorization(form) {
   if (!form.userName) {
     return 'Missing Username';
   }

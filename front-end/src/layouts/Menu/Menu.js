@@ -41,8 +41,8 @@ const ApplicationName = styled.div`
   color: white;
 `;
 
-const Menu = ({ handleAuthorization }) => {
-  console.log(handleAuthorization);
+const Menu = ({ handleLogout }) => {
+  console.log(handleLogout);
   return (
     <Container position=''>
       <Header>
@@ -63,7 +63,7 @@ const Menu = ({ handleAuthorization }) => {
         title='logout'
         isSelected={false}
         icon={<IconLogout />}
-        onclick={handleAuthorization}
+        onHover={handleLogout}
       />
     </Container>
   );

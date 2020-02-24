@@ -11,14 +11,14 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Home = ({ isLogged, isSuperUser, name, handleAuthorization }) => {
+const Home = ({ user: { id, isLogged, name }, handleLogout }) => {
   const [open, setOpen] = useState(true);
   return (
     <>
       {!isLogged && <Header isLogged={isLogged} name={name} />}
       {!isLogged && <Hero />}
       <Container>
-        {isLogged && open && <Menu handleAuthorization={handleAuthorization} />}
+        {isLogged && open && <Menu handleLogout={handleLogout} />}
         {isLogged && <WordsDatabase name={name} />}
       </Container>
     </>

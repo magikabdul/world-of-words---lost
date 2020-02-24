@@ -11,36 +11,67 @@ import RegisterPage from '../layouts/Register/Register';
 class WowApplication extends Component {
   state = {
     user: {
+      id: 0,
       name: '',
       isLogged: false,
       isSuperUser: false
     }
   };
 
-  handleAuthorization = prevState =>
+  handleAuthorization = (id, form) => {
+    sessionStorage.setItem('id', id);
+    sessionStorage.setItem('user', btoa(form.userName));
+    sessionStorage.setItem('param', btoa(form.password));
     this.setState({
+      ...this.state,
       user: {
-        name: 'magikabdul',
+        ...this.state.user,
+        name: form.userName,
         isLogged: true,
-        isSuperUser: true
+        id: id
       }
     });
+  };
+
+  handleLogout = () => {
+    sessionStorage.removeItem('id');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('param');
+    this.setState({
+      user: {
+        id: 0,
+        name: '',
+        isLogged: false,
+        isSuperUser: false
+      }
+    });
+  };
+
+  componentDidMount() {
+    if (sessionStorage.getItem('user') !== null) {
+      this.setState({
+        ...this.state,
+        user: {
+          ...this.state.user,
+          id: sessionStorage.getItem('id'),
+          name: atob(sessionStorage.getItem('user')),
+          isLogged: true
+        }
+      });
+    }
+  }
 
   render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route path='/' exact>
-            <HomePage
-              isLogged={this.state.user.isLogged}
-              name={this.state.user.name}
-              isSuperUser={this.state.user.isSuperUser}
-              //handleAuthorization={this.handleAuthorization}
-            />
+            <HomePage handleLogout={this.handleLogout} user={this.state.user} />
           </Route>
 
           <Route path='/login'>
             <LoginPage
+              id={this.state.user.id}
               isLogged={this.state.user.isLogged}
               name={this.state.user.name}
               handleAuthorization={this.handleAuthorization}
@@ -53,14 +84,6 @@ class WowApplication extends Component {
               name={this.state.user.name}
             />
           </Route>
-
-          {/* <Route path='/admin'>
-            <Dictionary
-              isLogged={this.state.user.isLogged}
-              name={this.state.user.name}
-              isSuperUser={this.state.user.isSuperUser}
-            />
-          </Route> */}
 
           <Route>
             <ErrorPage />
