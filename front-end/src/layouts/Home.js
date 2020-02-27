@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Header from '../components/Header/Header';
@@ -11,18 +11,44 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Home = ({ user: { id, isLogged, name }, handleLogout }) => {
-  const [open, setOpen] = useState(true);
-  return (
-    <>
-      {!isLogged && <Header isLogged={isLogged} name={name} />}
-      {!isLogged && <Hero />}
-      <Container>
-        {isLogged && open && <Menu handleLogout={handleLogout} />}
-        {isLogged && <WordsDatabase name={name} />}
-      </Container>
-    </>
-  );
-};
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mode: 0
+    };
+  }
+
+  setMode = mode => {
+    this.setState({
+      ...this.state,
+      mode
+    });
+  };
+
+  render() {
+    const { id, isLogged, name } = this.props.user;
+
+    return (
+      <>
+        {!isLogged && <Header isLogged={isLogged} name={name} />}
+        {!isLogged && <Hero />}
+
+        <Container>
+          {isLogged && (
+            <Menu
+              mode={this.state.mode}
+              setMode={this.setMode}
+              handleLogout={this.props.handleLogout}
+            />
+          )}
+          {isLogged && this.state.mode === 2 && (
+            <WordsDatabase name={name} mode={this.state.mode} />
+          )}
+        </Container>
+      </>
+    );
+  }
+}
 
 export default Home;

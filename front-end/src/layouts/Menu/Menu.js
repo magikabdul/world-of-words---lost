@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -41,8 +41,7 @@ const ApplicationName = styled.div`
   color: white;
 `;
 
-const Menu = ({ handleLogout }) => {
-  console.log(handleLogout);
+const Menu = ({ mode, setMode, handleLogout }) => {
   return (
     <Container position=''>
       <Header>
@@ -50,20 +49,38 @@ const Menu = ({ handleLogout }) => {
         <ApplicationName>world of words</ApplicationName>
       </Header>
       <HorizontalSpacer />
-      <MenuItem title='dashboard' isSelected={false} icon={<IconDashboard />} />
-      <MenuItem title='user details' isSelected={false} icon={<IconUser />} />
+      <MenuItem
+        title='dashboard'
+        isSelected={mode === 0}
+        icon={<IconDashboard />}
+        onClick={() => {
+          setMode(0);
+        }}
+      />
+      <MenuItem
+        title='user details'
+        isSelected={mode === 1}
+        icon={<IconUser />}
+        mode={1}
+        onClick={() => {
+          setMode(1);
+        }}
+      />
       <HorizontalSpacer />
       <MenuItem
         title='words database'
-        isSelected={false}
+        isSelected={mode === 2}
         icon={<IconDatabase />}
+        onClick={() => {
+          setMode(2);
+        }}
       />
       <HorizontalSpacer />
       <MenuItem
         title='logout'
         isSelected={false}
         icon={<IconLogout />}
-        onHover={handleLogout}
+        onClick={handleLogout}
       />
     </Container>
   );
