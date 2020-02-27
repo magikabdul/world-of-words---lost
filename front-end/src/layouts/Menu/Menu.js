@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import {
@@ -10,8 +10,6 @@ import {
 
 import HorizontalSpacer from '../../components/HorizontalSpacer/HorizontalSpacer';
 import MenuItem from '../../components/MenuItem/MenuItem';
-
-import './menu.scss';
 
 const Container = styled.div.attrs(props => ({
   position: props.position || '0px'
@@ -33,6 +31,9 @@ const Header = styled.div`
 const Logo = styled.div`
   width: 2rem;
   height: 2rem;
+  background-image: url('../../images/nuclear.jpg');
+  background-position: center;
+  background-size: cover;
 `;
 
 const ApplicationName = styled.div`
@@ -45,7 +46,9 @@ const Menu = ({ mode, setMode, handleLogout }) => {
   return (
     <Container position=''>
       <Header>
-        <Logo className='logo' />
+        <Logo
+          style={{ backgroundImage: "url('../../images/forbidden.jpg')" }}
+        />
         <ApplicationName>world of words</ApplicationName>
       </Header>
       <HorizontalSpacer />
