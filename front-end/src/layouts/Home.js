@@ -6,6 +6,7 @@ import Hero from '../components/Hero/Hero';
 import Menu from '../layouts/Menu/Menu';
 
 import WordsDatabase from '../layouts/WorkingAreas/WordsDatabase/WordsDatabase';
+import ManagerDashboard from '../layouts/WorkingAreas/ManagerDashboard';
 
 const Container = styled.div`
   display: flex;
@@ -42,6 +43,11 @@ class Home extends Component {
               handleLogout={this.props.handleLogout}
             />
           )}
+
+          {isLogged && this.state.mode === 0 && (
+            <ManagerDashboard name={name} mode={this.state.mode} />
+          )}
+
           {isLogged && this.state.mode === 2 && (
             <WordsDatabase name={name} mode={this.state.mode} />
           )}

@@ -27,7 +27,7 @@ const WorkingAreaHeader = ({ title, name }) => {
   return (
     <Container>
       <Title>{title}</Title>
-      <User>{`Hello ${name}`}</User>
+      {name && <User>{`Hello ${name}`}</User>}
     </Container>
   );
 };
