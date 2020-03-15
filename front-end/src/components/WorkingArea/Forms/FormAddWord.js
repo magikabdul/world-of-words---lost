@@ -114,7 +114,7 @@ export default class FormAddWord extends Component {
     polish: '',
     english: '',
     showConfirmation: false,
-    successMesaage: false,
+    successMessage: false,
     errorMessage: false
   };
 
@@ -145,10 +145,10 @@ export default class FormAddWord extends Component {
         showConfirmation: false,
         polish: '',
         english: '',
-        successMesaage: true
+        successMessage: true
       });
 
-      setTimeout(() => this.setState({ successMesaage: false }), 3000);
+      setTimeout(() => this.setState({ successMessage: false }), 3000);
     }
   };
 
@@ -199,7 +199,7 @@ export default class FormAddWord extends Component {
             handleAddToDb={this.handleAddToDb}
           />
         ) : null}
-        {this.state.successMesaage ? <ModalAdded /> : null}
+        {this.state.successMessage ? <ModalAdded /> : null}
         {this.state.errorMessage ? (
           <ModalError handleErrorMessageClose={this.handleErrorMessageClose} />
         ) : null}
