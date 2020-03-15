@@ -16,7 +16,7 @@ const Container = styled.div.attrs(props => ({
 }))`
   transform: translateX(${props => props.position});
   background: rgba(0, 0, 0, 0.5);
-  width: 15rem;
+  min-width: 15rem;
   height: 100vh;
   box-shadow: 0 0 20px;
 `;
