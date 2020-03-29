@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.cholewa</groupId>
-    <artifactId>wow</artifactId>
+    <artifactId>worldofwords</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>wow</name>
+    <name>worldofwords</name>
     <description>World of Words</description>
 
     <properties>

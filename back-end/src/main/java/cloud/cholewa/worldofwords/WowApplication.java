@@ -1,4 +1,4 @@
-package cloud.cholewa.wow;
+package cloud.cholewa.worldofwords;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
