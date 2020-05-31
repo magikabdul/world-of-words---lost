@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ToString
 @Setter
@@ -22,6 +23,7 @@ public class FosterResponse {
     private LocalDateTime updatedAt;
     private LocalDateTime lastSeenAt;
     private WordResponse word;
+    private List<WordResponse> words;
     private String actionMessage;
 
     private FosterResponse() {}
@@ -36,6 +38,7 @@ public class FosterResponse {
         private LocalDateTime updatedAt;
         private LocalDateTime lastSeenAt;
         private WordResponse word;
+        private List<WordResponse> wordResponseList;
         private String actionMessage;
 
         public Builder firstName(String firstName) {
@@ -88,6 +91,11 @@ public class FosterResponse {
             return this;
         }
 
+        public Builder wordResponseList(List<WordResponse> wordResponseList) {
+            this.wordResponseList = wordResponseList;
+            return this;
+        }
+
         public FosterResponse build() {
             FosterResponse fosterResponse = new FosterResponse();
             fosterResponse.firstName = this.firstName;
@@ -100,6 +108,7 @@ public class FosterResponse {
             fosterResponse.id = this.id;
             fosterResponse.actionMessage = this.actionMessage;
             fosterResponse.word = this.word;
+            fosterResponse.words = this.wordResponseList;
 
             return fosterResponse;
         }

@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/fosters")
 public class FosterApi {
 
-    private FosterService fosterService;
+    private final FosterService fosterService;
 
     @GetMapping("/{id}")
     public ResponseEntity<FosterResponse> getFosterById(@PathVariable Long id) {
@@ -45,5 +45,10 @@ public class FosterApi {
     @PostMapping("/{fosterId}/words")
     public ResponseEntity<FosterResponse> addWord(@PathVariable Long fosterId, @RequestBody WordCreate wordCreate) {
         return new ResponseEntity<>(fosterService.addWord(fosterId, wordCreate), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{fosterId}/words")
+    public ResponseEntity<FosterResponse> getAllWordsByFosterId(@PathVariable Long fosterId) {
+        return new ResponseEntity<>(fosterService.getAllWordsByFosterId(fosterId), HttpStatus.OK);
     }
 }

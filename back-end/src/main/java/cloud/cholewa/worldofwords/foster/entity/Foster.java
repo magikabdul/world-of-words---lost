@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,16 +24,12 @@ public class Foster {
     @OneToOne
     private User user;
 
-    @NotNull
     private String firstName;
 
-    @NotNull
     private String lastName;
 
-    @NotNull
     private String email;
 
-    @NotNull
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -47,5 +42,9 @@ public class Foster {
 
     public void addWord(Word word) {
         wordList.add(word);
+    }
+
+    public List<Word> getAllFosterWords() {
+        return wordList;
     }
 }

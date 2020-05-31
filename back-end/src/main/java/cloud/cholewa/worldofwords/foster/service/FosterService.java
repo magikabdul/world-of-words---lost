@@ -1,6 +1,5 @@
 package cloud.cholewa.worldofwords.foster.service;
 
-import cloud.cholewa.worldofwords.category.boundary.CategoryResponse;
 import cloud.cholewa.worldofwords.category.entity.Category;
 import cloud.cholewa.worldofwords.category.service.CategoryService;
 import cloud.cholewa.worldofwords.core.configuration.DefaultAdmin;
@@ -14,9 +13,8 @@ import cloud.cholewa.worldofwords.foster.entity.Foster;
 import cloud.cholewa.worldofwords.user.boundary.UserRepository;
 import cloud.cholewa.worldofwords.user.entity.User;
 import cloud.cholewa.worldofwords.word.boundary.WordCreate;
-import cloud.cholewa.worldofwords.word.boundary.WordRepository;
-import cloud.cholewa.worldofwords.word.boundary.WordResponse;
 import cloud.cholewa.worldofwords.word.entity.Word;
+import cloud.cholewa.worldofwords.word.service.WordService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -24,8 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,8 +31,9 @@ public class FosterService {
     private DefaultAdmin admin;
     private PasswordEncoder encoder;
     private FosterRepository fosterRepository;
+    private FosterMapper fosterMapper;
     private UserRepository userRepository;
-    private WordRepository wordRepository;
+    private WordService wordService;
     private CategoryService categoryService;
 
     @EventListener(ApplicationReadyEvent.class)
@@ -50,32 +48,12 @@ public class FosterService {
     }
 
     public List<FosterResponse> getAllFosters() {
-        List<Foster> fosters = fosterRepository.findAll();
-
-        return fosters.stream().map(foster ->
-                new FosterResponse.Builder()
-                        .id(foster.getId())
-                        .userName(foster.getUser().getUsername())
-                        .firstName(foster.getFirstName())
-                        .lastName(foster.getLastName())
-                        .createdAt(foster.getCreatedAt())
-                        .email(foster.getEmail())
-                        .build())
-                .collect(Collectors.toList());
+        return fosterMapper.mapFosterListToFosterResponse(fosterRepository.findAll());
     }
 
     public FosterResponse getById(Long id) {
         Foster foster = fosterRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Foster not found"));
-
-        return new FosterResponse.Builder()
-                .id(foster.getId())
-                .userName(foster.getUser().getUsername())
-                .firstName(foster.getFirstName())
-                .lastName(foster.getLastName())
-                .email(foster.getEmail())
-                .createdAt(foster.getCreatedAt())
-                .actionMessage("Foster found")
-                .build();
+        return fosterMapper.mapFosterToFosterResponse(foster);
     }
 
     public FosterResponse addFoster(FosterCreate fosterCreate) {
@@ -98,13 +76,7 @@ public class FosterService {
         fosterRepository.delete(foster);
         userRepository.delete(user);
 
-        return new FosterResponse.Builder()
-                .id(foster.getId())
-                .userName(foster.getUser().getUsername())
-                .firstName(foster.getFirstName())
-                .lastName(foster.getLastName())
-                .actionMessage("Foster removed")
-                .build();
+        return fosterMapper.mapFosterToFosterResponse(foster);
     }
 
     public FosterResponse updateFoster(Long id, FosterCreate fosterCreate) {
@@ -138,13 +110,7 @@ public class FosterService {
         userRepository.save(user);
         fosterRepository.save(foster);
 
-        return new FosterResponse.Builder()
-                .firstName(foster.getFirstName())
-                .lastName(foster.getLastName())
-                .userName(foster.getUser().getUsername())
-                .email(foster.getEmail())
-                .actionMessage("Foster updated")
-                .build();
+        return fosterMapper.mapFosterToFosterResponse(foster);
     }
 
     private boolean areUserDetailsUnique(String userName, String email) {
@@ -174,14 +140,7 @@ public class FosterService {
         userRepository.save(user);
         fosterRepository.save(foster);
 
-        return new FosterResponse.Builder()
-                .firstName(fistName)
-                .lastName(lastName)
-                .userName(userName)
-                .email(email)
-                .createdAt(foster.getCreatedAt())
-                .actionMessage("Foster created")
-                .build();
+        return fosterMapper.mapFosterToFosterResponse(foster);
     }
 
     public FosterResponse addWord(Long fosterId, WordCreate wordCreate) {
@@ -189,38 +148,33 @@ public class FosterService {
             throw new UserNotFoundException("User with id: " + fosterId + " not found");
         } else {
             Foster foster = fosterRepository.findById(fosterId).get();
-            Set<Category> categorySet = categoryService.updateCategoriesSet(wordCreate.getCategory());
+            //List<Category> categoryList = categoryService.updateCategoryList(wordCreate.getCategory());
 
             //TODO what to do if word is existing
             Word word = new Word();
             word.setPolish(wordCreate.getPolish());
             word.setEnglish(wordCreate.getEnglish());
-            word.setCategorySet(categorySet);
+            //word.setCategoryList(categoryList);
             word.setCreatedAt(Clock.now());
 
             foster.addWord(word);
 
-            wordRepository.save(word);
+            wordService.addWord(word);
             fosterRepository.save(foster);
 
-            return new FosterResponse.Builder()
-                    .id(foster.getId())
-                    .userName(foster.getUser().getUsername())
-                    .wordResponse(
-                            new WordResponse.Builder()
-                                    .id(word.getId())
-                                    .polish(word.getPolish())
-                                    .english(word.getEnglish())
-                                    .createdAt(word.getCreatedAt())
-                                    .categories(
-                                            categorySet.stream()
-                                                    .map(category -> new CategoryResponse.Builder()
-                                                            .name(category.getName())
-                                                            .build())
-                                            .collect(Collectors.toSet())
-                                    )
-                                    .build())
-                    .build();
+            return fosterMapper.mapFosterToFosterResponseIncludingSingleWord(foster, word);
+        }
+    }
+
+    public FosterResponse getAllWordsByFosterId(Long fosterId) {
+        Optional<Foster> optionalFoster = fosterRepository.findById(fosterId);
+
+        if (optionalFoster.isEmpty()) {
+            throw new UserNotFoundException("User with id: " + fosterId + " not found");
+        } else {
+            Foster foster = optionalFoster.get();
+
+            return fosterMapper.mapFosterToFosterResponseIncludingAllWords(foster);
         }
     }
 }

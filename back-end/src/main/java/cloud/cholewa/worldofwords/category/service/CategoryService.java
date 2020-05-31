@@ -11,23 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @AllArgsConstructor
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
+    private CategoryMapper categoryMapper;
 
     public List<CategoryResponse> getAllCategories() {
-        return categoryRepository.findAll()
-                .stream()
-                .map(category -> new CategoryResponse.Builder()
-                        .id(category.getId())
-                        .name(category.getName())
-                        .build())
-                .collect(Collectors.toList());
+        return categoryMapper.mapCategoryListToCategoryResponseList(categoryRepository.findAll());
     }
 
     public CategoryResponse addCategory(CategoryCreate categoryCreate) {
@@ -39,10 +34,7 @@ public class CategoryService {
 
             categoryRepository.save(category);
 
-            return new CategoryResponse.Builder()
-                    .name(category.getName())
-                    .message("created")
-                    .build();
+            return categoryMapper.mapCategoryToCategoryResponse(category);
         }
     }
 
@@ -61,11 +53,7 @@ public class CategoryService {
 
                 categoryRepository.save(category);
 
-                return new CategoryResponse.Builder()
-                        .id(category.getId())
-                        .name(category.getName())
-                        .message("updated")
-                        .build();
+                return categoryMapper.mapCategoryToCategoryResponse(category);
             }
         }
     }
@@ -79,16 +67,12 @@ public class CategoryService {
             Category category = optionalCategory.get();
             categoryRepository.delete(category);
 
-            return new CategoryResponse.Builder()
-                    .id(category.getId())
-                    .name(category.getName())
-                    .message("deleted")
-                    .build();
+            return categoryMapper.mapCategoryToCategoryResponse(category);
         }
     }
 
-    public Set<Category> updateCategoriesSet(Set<CategoryCreate> categoryCreateSet) {
-        Set<Category> categories = categoryCreateSet.stream()
+    public List<Category> updateCategoryList(List<CategoryCreate> categoryCreateList) {
+        return categoryCreateList.stream()
                 .map(categoryCreate -> {
                     if (categoryRepository.findByName(categoryCreate.getName()).isEmpty()) {
                         Category category = new Category();
@@ -98,8 +82,6 @@ public class CategoryService {
 
                     return categoryRepository.findByName(categoryCreate.getName()).get();
                 })
-                .collect(Collectors.toSet());
-
-        return categories;
+                .collect(toList());
     }
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @NoArgsConstructor
 @Setter
@@ -13,5 +13,5 @@ import java.util.Set;
 public class WordCreate {
     private String polish;
     private String english;
-    private Set<CategoryCreate> category;
+    private List<CategoryCreate> category;
 }

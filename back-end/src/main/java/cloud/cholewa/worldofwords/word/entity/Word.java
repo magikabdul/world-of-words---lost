@@ -6,9 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "words")
@@ -24,11 +23,10 @@ public class Word {
     private String polish;
     private String english;
 
-    @NotNull
     private LocalDateTime createdAt;
 
     private LocalDateTime updateAt;
 
     @OneToMany
-    private Set<Category> categorySet;
+    private List<Category> categoryList;
 }
